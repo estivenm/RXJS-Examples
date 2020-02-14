@@ -24,6 +24,8 @@ export default () => {
 
     /** Reduce aplica una misma funcion a acada evento que pasa por el stream
         y devuelve el resultado cuando finaliza 
+        
+        Scan devuelve todo el historico
     **/
     /** end coding */
 }
