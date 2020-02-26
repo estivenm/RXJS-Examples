@@ -1,6 +1,6 @@
 import { updateDisplay, displayLog } from './utils';
 import { api } from './api';
-import { merge, fromEvent } from 'rxjs';
+import { merge, fromEvent, concat, forkJoin } from 'rxjs';
 import { map, endWith } from 'rxjs/operators';
 
 export default () => {
@@ -17,8 +17,9 @@ export default () => {
         const comment4$ = api.getComment(4);
 
         //subscribe to all the observables to get and display comments
-        merge(comment1$, comment2$, comment3$, comment4$).pipe(
-            map(({id, comment}) => `#${id} - ${comment}`),
+        forkJoin(comment1$, comment2$, comment3$, comment4$).pipe(
+            // map(({id, comment}) => `#${id} - ${comment}`),
+            map(JSON.stringify),
             endWith('--------//--------')
         ).subscribe(data =>{
             displayLog(data);
@@ -28,5 +29,9 @@ export default () => {
     /** get comments on button click */
     fromEvent(button, 'click').subscribe(getComments);
 
+    /**
+     * concat emite todos los eventos en  un mismo flujo (secuencial)
+     * forkJoin espera que se complete todo un flujo de datos y emite  un flujo con el ultimo valor
+     */
     /** end coding */
 }
