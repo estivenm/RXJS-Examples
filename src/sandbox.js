@@ -15,9 +15,9 @@ export default () => {
 
     //observable that returns scroll (from top) on scroll events
     const scroll$ = fromEvent(document, 'scroll').pipe(
-        sampleTime(50),
-        auditTime(50),
-        throttleTime(),
+        // sampleTime(50),
+        // auditTime(50),
+        throttleTime(50),
         map(() => docElement.scrollTop),
         tap(evt => console.log("[scroll]: ", evt))
     );
