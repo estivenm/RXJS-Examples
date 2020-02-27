@@ -37,7 +37,7 @@ export default () => {
         formData$.subscribe(displayLog);
         /**
          * combineLatest juta en un array varios observables y recibir un evento para luego emitirlo
-         *  
+         * withLatestFrom operador  que solo emite eventos sobre el cual se aplican los cambios
          * 
          */
     /** end coding */
