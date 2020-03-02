@@ -17,5 +17,8 @@ export default () => {
         tap(console.log),
     ).subscribe(displayLog);
 
+    /**
+     * convertir cada comentario en un evento
+     */
     /** end coding */
 }
