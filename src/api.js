@@ -1,10 +1,17 @@
-import { timer } from 'rxjs';
-import { mapTo } from 'rxjs/operators';
+import { timer, throwError, of } from 'rxjs';
+import { mapTo, mergeMap } from 'rxjs/operators';
 
 export class api{
     static getComment(id){
         return timer(Math.random()*1000).pipe(
-            mapTo({id:id, comment:`comment number ${id}`})
+            mergeMap((env) => {
+                const isError = Math.random() > 0.1 ? true : false;
+                if(isError){
+                    return throwError(new Error('Request TimeOut'));
+                } else {
+                    of({id:id, comment:`comment number ${id}`})
+                }
+            })
         );
     }
 
