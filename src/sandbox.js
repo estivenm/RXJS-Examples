@@ -1,6 +1,6 @@
 import { updateDisplay } from './utils';
 import { fromEvent, interval, merge, EMPTY } from 'rxjs';
-import { mapTo, scan, takeWhile, switchMap, startWith  } from 'rxjs/operators';
+import { mapTo, scan, takeWhile, switchMap, startWith, materialize, tap, dematerialize  } from 'rxjs/operators';
 
 export default () => {
     /** start coding */
@@ -23,13 +23,20 @@ export default () => {
     /** countdown timer */
     const countdown$ = isPaused$.pipe(
         startWith(false),
-        switchMap(paused => !paused ? interval$ : EMPTY),
+        switchMap(paused => !paused ? interval$.pipe(materialize()) : EMPTY.pipe(materialize())),
+        dematerialize(),
         scan((acc, curr) => ( curr ? curr + acc : curr ), countdownSeconds),
-        takeWhile(v => v >= 0)
+        takeWhile(v => v >= 0),
+        tap(console.log)
     );
 
+    /**
+     * Noticiaciones
+     * Objeto que representa un accion push d eun observable
+     * Materialize permite emitir las acciones como eventos de metadatos
+     */
     /** subscribe to countdown */
-    countdown$.subscribe(updateDisplay);
+    countdown$.subscribe(updateDisplay, null, () => console.log('completed'));
 
     
     /** end coding */
