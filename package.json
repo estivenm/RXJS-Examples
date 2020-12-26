@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server --open --mode=development"
   },
-  "author": "Enrique Oriol",
+  "author": "Estiven Mazo",
   "license": "MIT",
   "devDependencies": {
     "webpack": "^4.27.0",
