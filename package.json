@@ -4,16 +4,21 @@
   "description": "",
   "private": true,
   "scripts": {
-    "start": "webpack-dev-server --open --mode=development"
+    "start": "webpack-dev-server --open --mode=development",
+    "uglifyjs": "uglifyjs lib.js  --compress --mangle --output jquery-3.2.1.min.js",
+    "uglify": "lib.js; uglifyjs-folder js -eo js"
   },
-  "author": "Enrique Oriol",
+  "author": "Estiven Mazo",
   "license": "MIT",
   "devDependencies": {
+    "javascript-obfuscator": "^1.3.0",
     "webpack": "^4.27.0",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10"
   },
   "dependencies": {
-    "rxjs": "^6.3.3"
+    "rxjs": "^6.3.3",
+    "uglify-es": "^3.3.9",
+    "uglify-js": "^3.10.0"
   }
 }
